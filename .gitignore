@@ -1,0 +1,14 @@
+﻿infrastructure/.terraform
+infrastructure/.terraform.lock.hcl
+infrastructure/bastion_host_private_key_demo.pem
+infrastructure/terraform.tfstate
+infrastructure/terraform.tfstate.backup
+api-gateway/.idea
+api-gateway/target
+user-service/.idea
+user-service/target
+auth-service/.idea
+auth-service/target
+infrastructure/.terraform.tfstate.lock.info
+infrastructure/modules/lambda/sqs-handler/node_modules
+infrastructure/modules/lambda/sqs-handler/package-lock.json

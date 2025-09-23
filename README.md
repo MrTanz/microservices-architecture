@@ -1,0 +1,2 @@
+⚠️ Disclaimer: questo progetto è stato sviluppato a scopo didattico e sperimentale.
+Non rappresenta un'infrastruttura pronta per ambienti di produzione, ma un esercizio tecnico completo per esplorare e comprendere meglio l’ecosistema AWS.

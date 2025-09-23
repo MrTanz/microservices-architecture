@@ -1,0 +1,13 @@
+{
+  "name": "lambda-sqs-http",
+  "version": "1.0.0",
+  "description": "Lambda function that processes SQS messages and makes HTTP calls",
+  "main": "index.js",
+  "scripts": {
+    "zip": "zip -r ../sqs-handler.zip index.js node_modules/ package.json package-lock.json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ssm": "^3.500.0",
+    "axios": "^1.6.8"
+  }
+}
