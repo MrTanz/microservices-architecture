@@ -4,7 +4,7 @@ Viene creato di default uno user con ruolo ADMIN. Altri utenti possono essere cr
   password: admin1234
 
 <!-- ATTENZIONE -->
-1. Una volta creata l'infrastruttura vanno creati manualmente il database e gli schema su RDS e pushate le immagini docker su ECR
+1. Una volta creata l'infrastruttura vanno creati manualmente gli schema su RDS e pushate le immagini docker su ECR
 2. Mancano le logiche per gestire le seguenti casistiche:
   - utente che esegue più login: deve essere valido solo l'ultimo token
   - utente che viene cancellato: il token deve essere revocato

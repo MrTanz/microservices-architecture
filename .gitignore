@@ -13,3 +13,5 @@ aws-infrastructure/.terraform.tfstate.lock.info
 aws-infrastructure/modules/lambda/sqs-handler/node_modules
 aws-infrastructure/modules/lambda/sqs-handler/package-lock.json
 .DS_Store
+k8-infrastructure/Chart.lock
+*.tgz
