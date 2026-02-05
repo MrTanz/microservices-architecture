@@ -3,14 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "user-service.fullName" . }}-config
 data:
-  SERVER_PORT: {{ .Values.global.config.SERVER_PORT | default .Values.config.SERVER_PORT | quote }}
+  SERVER_PORT: {{ Values.config.SERVER_PORT | quote }}
   REGION: {{ .Values.global.config.REGION | default .Values.config.REGION | quote }}
   QUEUE_URL: {{ .Values.global.config.QUEUE_URL | default .Values.config.QUEUE_URL | quote }}
-  DATABASE_URL: {{ .Values.global.config.DATABASE_URL | default .Values.config.DATABASE_URL | quote }}
-  DATABASE_PORT: {{ .Values.global.config.DATABASE_PORT | default .Values.config.DATABASE_PORT | quote }}
-  DATABASE_NAME: {{ .Values.global.config.DATABASE_NAME | default .Values.config.DATABASE_NAME | quote }}
-  DATABASE_SCHEMA: {{ .Values.config.DATABASE_SCHEMA | quote }}
-  DATABASE_USERNAME: {{ .Values.global.config.DATABASE_USERNAME | default .Values.config.DATABASE_USERNAME | quote }}
-  DATABASE_PASSWORD: {{ .Values.global.config.DATABASE_PASSWORD | default .Values.config.DATABASE_PASSWORD | quote }}
-  JWT_SECRET_KEY: {{ .Values.global.config.JWT_SECRET_KEY | default .Values.config.JWT_SECRET_KEY | quote }}
-  INTERNAL_API_KEY: {{ .Values.global.config.INTERNAL_API_KEY | default .Values.config.INTERNAL_API_KEY | quote }}

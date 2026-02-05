@@ -23,3 +23,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "user-service.fullName" . }}-config
+            - secretRef:
+                name: {{ include "user-service.fullName" . }}-api-secret
+            - secretRef:
+                name: {{ include "user-service.fullName" . }}-db-secret

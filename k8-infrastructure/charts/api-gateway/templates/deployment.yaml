@@ -23,3 +23,5 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "api-gateway.fullName" . }}-config
+            - secretRef:
+                name: {{ include "api-gateway.fullName" . }}-api-secret

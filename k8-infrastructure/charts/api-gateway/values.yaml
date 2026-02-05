@@ -15,6 +15,8 @@ services:
 
 config:
   SERVER_PORT: "8080"
-  JWT_SECRET_KEY: ""
   AUTH_SERVICE_URL: ""
   USER_SERVICE_URL: ""
+
+secrets: 
+  JWT_SECRET_KEY: ""

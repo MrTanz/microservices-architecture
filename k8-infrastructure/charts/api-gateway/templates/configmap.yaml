@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "api-gateway.fullName" . }}-config
 data:
-  SERVER_PORT: {{ .Values.global.config.SERVER_PORT | default .Values.config.SERVER_PORT | quote }}
-  JWT_SECRET_KEY: {{ .Values.global.config.JWT_SECRET_KEY | default .Values.config.JWT_SECRET_KEY | quote }}
+  SERVER_PORT: {{ .Values.config.SERVER_PORT | quote }}
   AUTH_SERVICE_URL: {{ .Values.global.config.AUTH_SERVICE_URL | default .Values.config.AUTH_SERVICE_URL | quote }}
   USER_SERVICE_URL: {{ .Values.global.config.USER_SERVICE_URL | default .Values.config.USER_SERVICE_URL | quote }}

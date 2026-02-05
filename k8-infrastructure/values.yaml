@@ -17,7 +17,7 @@ postgresql:
           CREATE SCHEMA IF NOT EXISTS user_schema AUTHORIZATION myuser;
 
 global: 
-  config:
+  secrets:
     DATABASE_URL: local-postgresql
     DATABASE_PORT: "5432"
     DATABASE_NAME: mydb
