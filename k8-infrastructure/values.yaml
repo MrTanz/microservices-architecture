@@ -17,6 +17,10 @@ postgresql:
           CREATE SCHEMA IF NOT EXISTS user_schema AUTHORIZATION myuser;
 
 global: 
+  config:
+    REGION: "eu-south-1"
+    QUEUE_URL: ""
+
   secrets:
     DATABASE_URL: local-postgresql
     DATABASE_PORT: "5432"
@@ -26,10 +30,8 @@ global:
     JWT_SECRET_KEY: u8L1Rj0yFz7vQpG3n5X9m2Kq7s4V8bW0Y1xA6hJ2fP0=
     JWT_TOKEN_VALIDITY: "360000"
     INTERNAL_API_KEY: local-api-key
-    REGION: "eu-south-1"
-    QUEUE_URL: ""
-    AUTH_SERVICE_URL: http://local-auth-service-svc-0:8080
-    USER_SERVICE_URL: http://local-user-service-svc-0:8081
+    AUTH_SERVICE_URL: http://local-auth-service-svc:8080
+    USER_SERVICE_URL: http://local-user-service-svc:8081
 
 
 auth-service:

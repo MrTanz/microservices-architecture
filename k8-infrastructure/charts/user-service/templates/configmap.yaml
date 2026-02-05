@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "user-service.fullName" . }}-config
 data:
-  SERVER_PORT: {{ Values.config.SERVER_PORT | quote }}
+  SERVER_PORT: {{ .Values.config.SERVER_PORT | quote }}
   REGION: {{ .Values.global.config.REGION | default .Values.config.REGION | quote }}
   QUEUE_URL: {{ .Values.global.config.QUEUE_URL | default .Values.config.QUEUE_URL | quote }}

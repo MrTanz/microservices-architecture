@@ -9,9 +9,10 @@ image:
 container:
   port: "8080"
 
-services:
-  - type: ClusterIP
-    port: "8080"
+service:
+  enabled: true
+  type: ClusterIP
+  port: "8080"
 
 config:
   SERVER_PORT: "8080"

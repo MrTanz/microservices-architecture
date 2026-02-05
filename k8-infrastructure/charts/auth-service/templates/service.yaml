@@ -1,8 +1,8 @@
-{{- range $idx, $svc := (default list .Values.services) }}
+{{- if .Values.service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "auth-service.fullName" $ }}-svc-{{ $idx }}
+  name: {{ include "auth-service.fullName" $ }}-svc
 spec:
   type: {{ .type }}
   selector:
