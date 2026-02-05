@@ -11,4 +11,7 @@ docker build -t auth-service:latest .
 eval $(minikube docker-env)
 docker build -t user-service:latest .
 
-helm upgrade local . --atomic -f values.yaml
+eval $(minikube docker-env)
+docker build -t api-gateway:latest .
+
+helm upgrade local . -f values.yaml

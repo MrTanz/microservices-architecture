@@ -41,3 +41,9 @@ user-service:
     DATABASE_PASSWORD: mypassword
     JWT_SECRET_KEY: bG9jYWwtc2VjcmV0
     INTERNAL_API_KEY: local-api-key
+
+api-gateway:
+  config: 
+    JWT_SECRET_KEY: "bG9jYWwtc2VjcmV0"
+    AUTH_SERVICE_URL: http://local-auth-service
+    USER_SERVICE_URL: http://local-user-service

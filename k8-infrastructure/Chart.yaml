@@ -16,3 +16,5 @@ dependencies:
     version: 0.1.0
   - name: user-service
     version: 0.1.0
+  - name: api-gateway
+    version: 0.1.0
