@@ -7,21 +7,14 @@ image:
 
 
 container:
-  port: 8080
+  port: "8080"
 
 services:
   - type: ClusterIP
-    port: 8080
+    port: "8080"
 
 config:
   SERVER_PORT: "8080"
-  REGION: ""
-  QUEUE_URL: ""
-  DATABASE_URL: ""
-  DATABASE_PORT: ""
-  DATABASE_NAME: ""
-  DATABASE_SCHEMA: ""
-  DATABASE_USERNAME: ""
-  DATABASE_PASSWORD: ""
   JWT_SECRET_KEY: ""
-  INTERNAL_API_KEY: ""
+  AUTH_SERVICE_URL: ""
+  USER_SERVICE_URL: ""
