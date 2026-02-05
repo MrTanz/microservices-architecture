@@ -1,4 +1,6 @@
+# BUILD IMAGE IN MINIKUBE
+eval $(minikube docker-env)
+docker build -t <image-name>:<image-tag> .
 
-<!-- UPGRADE RELEASE -->
-helm upgrade <release-name> . -f values.yaml
-helm upgrade local . -f values.yaml
+eval $(minikube docker-env)
+docker build -t auth-service:latest .

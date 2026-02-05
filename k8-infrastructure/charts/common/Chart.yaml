@@ -1,5 +1,0 @@
-apiVersion: v2
-name: common
-description: A Helm chart common for microservices architecture in Kubernetes
-type: library
-version: 0.1.0
