@@ -38,32 +38,34 @@ auth-service:
   container:
     port: "8080"
 
-    services:
-      - type: ClusterIP
-        port: "8080"
+  service:
+    port: "8080"
+
   config:
     SERVER_PORT: "8080"
+
+  secrets:
     DATABASE_SCHEMA: auth_schema
 
 user-service:
   container:
     port: "8081"
 
-  services:
-    - type: ClusterIP
-      port: "8081"
+  service:
+    port: "8081"
 
   config:
     SERVER_PORT: "8081"
+    
+  secrets:
     DATABASE_SCHEMA: user_schema
 
 api-gateway:
   container:
     port: "8082"
 
-  services:
-    - type: ClusterIP
-      port: "8082"
+  service:
+    port: "8082"
 
   config: 
     SERVER_PORT: "8082"
