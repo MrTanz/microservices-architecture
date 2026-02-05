@@ -1,0 +1,13 @@
+{{- range $idx, $svc := (default list .Values.services) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "user-service.fullName" $ }}-svc-{{ $idx }}
+spec:
+  type: {{ .type }}
+  selector:
+    {{- include "user-service.selectorLabels" $ | nindent 4 }}
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ $.Values.container.port }}
+{{- end }}

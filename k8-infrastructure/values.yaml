@@ -28,3 +28,16 @@ auth-service:
     JWT_TOKEN_VALIDITY: "3600"
     INTERNAL_API_KEY: local-api-key
     USER_SERVICE_URL: http://user-service:8080
+
+user-service:
+  config:
+    REGION: "eu-south-1"
+    QUEUE_URL: ""
+    DATABASE_URL: local-postgresql
+    DATABASE_PORT: "5432"
+    DATABASE_NAME: mydb
+    DATABASE_SCHEMA: auth_schema
+    DATABASE_USERNAME: myuser
+    DATABASE_PASSWORD: mypassword
+    JWT_SECRET_KEY: bG9jYWwtc2VjcmV0
+    INTERNAL_API_KEY: local-api-key
