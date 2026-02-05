@@ -24,10 +24,10 @@ auth-service:
     DATABASE_SCHEMA: auth_schema
     DATABASE_USERNAME: myuser
     DATABASE_PASSWORD: mypassword
-    JWT_SECRET_KEY: bG9jYWwtc2VjcmV0
+    JWT_SECRET_KEY: u8L1Rj0yFz7vQpG3n5X9m2Kq7s4V8bW0Y1xA6hJ2fP0=
     JWT_TOKEN_VALIDITY: "3600"
     INTERNAL_API_KEY: local-api-key
-    USER_SERVICE_URL: http://user-service:8080
+    USER_SERVICE_URL: http://local-user-service-svc-0:8080
 
 user-service:
   config:
@@ -39,11 +39,11 @@ user-service:
     DATABASE_SCHEMA: auth_schema
     DATABASE_USERNAME: myuser
     DATABASE_PASSWORD: mypassword
-    JWT_SECRET_KEY: bG9jYWwtc2VjcmV0
+    JWT_SECRET_KEY: u8L1Rj0yFz7vQpG3n5X9m2Kq7s4V8bW0Y1xA6hJ2fP0=
     INTERNAL_API_KEY: local-api-key
 
 api-gateway:
   config: 
-    JWT_SECRET_KEY: "bG9jYWwtc2VjcmV0"
-    AUTH_SERVICE_URL: http://local-auth-service
-    USER_SERVICE_URL: http://local-user-service
+    JWT_SECRET_KEY: u8L1Rj0yFz7vQpG3n5X9m2Kq7s4V8bW0Y1xA6hJ2fP0=
+    AUTH_SERVICE_URL: http://local-auth-service-svc-0:8080
+    USER_SERVICE_URL: http://local-user-service-svc-0:8080

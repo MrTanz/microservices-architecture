@@ -7,13 +7,14 @@ image:
 
 
 container:
-  port: 80
+  port: 8080
 
 services:
   - type: ClusterIP
-    port: 80
+    port: 8080
 
 config:
+  SERVER_PORT: 8080
   DATABASE_URL: ""
   DATABASE_PORT: ""
   DATABASE_NAME: ""
