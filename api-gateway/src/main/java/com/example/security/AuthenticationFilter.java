@@ -17,6 +17,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Base64;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class AuthenticationFilter implements GlobalFilter, Ordered {
 
@@ -24,6 +27,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     private String secret;
 
     private Key signingKey;
+
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     @PostConstruct
     public void init() {
@@ -56,6 +61,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (JwtException e) {
+            logger.error("JWT error: {}", e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
