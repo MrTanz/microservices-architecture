@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "auth-service.fullName" . }}-config
 data:
-  SERVER_PORT: {{ default .Values.config.SERVER_PORT | quote }}
+  SERVER_PORT: {{ .Values.container.port | quote }}  
   USER_SERVICE_URL: {{ .Values.global.config.USER_SERVICE_URL | default .Values.config.USER_SERVICE_URL | quote }}

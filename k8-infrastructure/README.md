@@ -16,6 +16,9 @@ kubectl rollout restart deployment metrics-server -n kube-system
 kubectl exec -it <pod-name> -- /bin/sh
 while true; do :; done
 
+# ENABLE INGRESS
+minikube addons enable ingress
+
 eval $(minikube docker-env)
 docker build -t auth-service:latest .
 

@@ -20,12 +20,12 @@ global:
   config:
     REGION: "eu-south-1"
     QUEUE_URL: ""
-    AUTH_SERVICE_URL: http://local-auth-service-svc:8080
-    USER_SERVICE_URL: http://local-user-service-svc:8081
+    AUTH_SERVICE_URL: http://local-auth-service-svc:80
+    USER_SERVICE_URL: http://local-user-service-svc:80
 
   secrets:
     DATABASE_URL: local-postgresql
-    DATABASE_PORT: "5432"
+    DATABASE_PORT: 5432
     DATABASE_NAME: mydb
     DATABASE_USERNAME: myuser
     DATABASE_PASSWORD: mypassword
@@ -36,36 +36,18 @@ global:
 
 auth-service:
   container:
-    port: "8080"
-
-  service:
-    port: "8080"
-
-  config:
-    SERVER_PORT: "8080"
+    port: 8080
 
   secrets:
     DATABASE_SCHEMA: auth_schema
 
 user-service:
   container:
-    port: "8081"
-
-  service:
-    port: "8081"
-
-  config:
-    SERVER_PORT: "8081"
+    port: 8081
     
   secrets:
     DATABASE_SCHEMA: user_schema
 
 api-gateway:
   container:
-    port: "8082"
-
-  service:
-    port: "8082"
-
-  config: 
-    SERVER_PORT: "8082"
+    port: 8082
