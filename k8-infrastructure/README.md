@@ -18,6 +18,7 @@ while true; do :; done
 
 # ENABLE INGRESS
 minikube addons enable ingress
+minikube tunnel
 
 eval $(minikube docker-env)
 docker build -t auth-service:latest .
