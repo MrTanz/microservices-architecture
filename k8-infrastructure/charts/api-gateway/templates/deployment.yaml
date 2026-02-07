@@ -5,7 +5,9 @@ metadata:
   labels: 
     {{- include "api-gateway.labels" . | nindent 4 }}
 spec:
+{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+{{- end }}
   selector:
     matchLabels:
       {{- include "api-gateway.selectorLabels" .| nindent 6 }}
@@ -18,6 +20,13 @@ spec:
         - name: api-gateway
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
           ports:
             - containerPort: {{ .Values.container.port }}
           envFrom:

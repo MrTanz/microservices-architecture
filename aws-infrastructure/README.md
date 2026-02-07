@@ -16,9 +16,7 @@ Viene creato di default uno user con ruolo ADMIN. Altri utenti possono essere cr
 1. sqs_handler_sg deve instradare il traffico solo verso l'ecs task dell'auth-service
 2. application_load_balancer_sg deve instradare il traffico solo verso l'ecs task dell'api-gateway
 3. aws_ecr_repository_policy aggiungere nei Principal solo l'arn del ruolo di ecs
-
-<!-- TODO -->
-1. ssm parameter database_url non deve essere sovrascritto dal modulo ssm una volta popolato dal modulo rds nei successivi deploy
+4. [BUG] ssm parameter database_url non deve essere sovrascritto dal modulo ssm una volta popolato dal modulo rds nei successivi deploy
 
 <!-- PLAN -->
 terraform plan --var-file="env.tfvars"
