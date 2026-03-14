@@ -114,7 +114,7 @@ resource "aws_lb_target_group" "application_load_balancer_tg" {
   target_type = "ip"
 
   health_check {
-    path                = "/health-check"
+    path                = "/actuator/health"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = 30

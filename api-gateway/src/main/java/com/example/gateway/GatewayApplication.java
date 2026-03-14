@@ -7,13 +7,9 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.example")
-@RestController
 public class GatewayApplication {
 
     @Value("${auth-service-url}")
@@ -24,11 +20,6 @@ public class GatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
-
-    @GetMapping("/health-check")
-    public ResponseEntity<String> healthCheck() {
-        return ResponseEntity.ok().build();
-    }
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
