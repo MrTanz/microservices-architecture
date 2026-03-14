@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/sign-up").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/auth/{username}/credentials").permitAll()
+                        .requestMatchers("/actuator/health/**", "/actuator/info").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex

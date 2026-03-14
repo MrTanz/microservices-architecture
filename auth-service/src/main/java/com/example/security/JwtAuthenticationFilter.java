@@ -30,7 +30,6 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -50,6 +49,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @PostConstruct
     public void init() {
+        if (secret == null || secret.isBlank()) {
+            logger.error("JWT secret key is not configured. Set 'security.jwt.secret-key'.");
+            throw new IllegalStateException("JWT secret key is not configured");
+        }
+
         this.signingKey = new SecretKeySpec(Base64.getDecoder().decode(secret), "HmacSHA256");
     }
 

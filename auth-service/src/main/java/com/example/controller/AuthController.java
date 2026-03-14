@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
@@ -25,19 +26,28 @@ public class AuthController {
     @Autowired
     private AuthService service;
 
+    private String maskEmail(String email) {
+        if (email == null || !email.contains("@")) return email;
+        String[] parts = email.split("@", 2);
+        if (parts[0].length() <= 2) return "***@" + parts[1];
+        return parts[0].charAt(0) + "***@" + parts[1];
+    }
+
     @PostMapping(value = "/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto dto) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        logger.info("[START API LOGIN] - username = {}", dto.getUsername());
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String masked = maskEmail(dto.getUsername());
+        logger.info("[START API LOGIN] - username = {}", masked);
         LoginResponseDto response = service.login(dto);
-        logger.info("[END API LOGIN] - username = {}", dto.getUsername());
+        logger.info("[END API LOGIN] - username = {}", masked);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping(value = "/sign-up")
-    public ResponseEntity<GenericResponse> signUp(@RequestBody SignUpRequestDto dto) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        logger.info("[START API SIGN UP] - username = {}", dto.getUsername());
+    public ResponseEntity<GenericResponse> signUp(@Valid @RequestBody SignUpRequestDto dto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String masked = maskEmail(dto.getUsername());
+        logger.info("[START API SIGN UP] - username = {}", masked);
         GenericResponse response = service.signUp(dto);
-        logger.info("[END API SIGN UP] - username = {}", dto.getUsername());
+        logger.info("[END API SIGN UP] - username = {}", masked);
         return ResponseEntity.ok(response);
     }
 

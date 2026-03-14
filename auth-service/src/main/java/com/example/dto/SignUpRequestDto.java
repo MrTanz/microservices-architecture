@@ -1,10 +1,20 @@
 package com.example.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 public class SignUpRequestDto {
+    @NotBlank
+    @Email
     private String username;
+    @NotBlank
     private String password;
+    @NotBlank
     private String name;
+    @NotBlank
     private String surname;
+    @Min(18)
     private int age;
 
     public SignUpRequestDto(String username, String password, String name, String surname, int age) {

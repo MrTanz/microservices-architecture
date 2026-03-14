@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -27,6 +28,18 @@ public class GlobalExceptionHandler {
         log.warn("Bad request: {}", e.getMessage());
         return ResponseEntity.badRequest()
                 .body(new GenericResponse(e.getMessage()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<GenericResponse> handleValidation(MethodArgumentNotValidException e) {
+        String message = e.getBindingResult().getFieldErrors().stream()
+                .map(fe -> fe.getField() + ": " + fe.getDefaultMessage())
+                .findFirst()
+                .orElse("Validation error");
+
+        log.warn("Validation failed: {}", message);
+        return ResponseEntity.badRequest()
+                .body(new GenericResponse(message));
     }
 
     @ExceptionHandler(AccessDeniedException.class)

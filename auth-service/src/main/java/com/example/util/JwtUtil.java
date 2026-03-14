@@ -23,6 +23,10 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException("JWT secret key is not configured");
+        }
+
         this.key = new SecretKeySpec(Base64.getDecoder().decode(secret), "HmacSHA256");
     }
 
