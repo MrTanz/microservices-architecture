@@ -20,8 +20,8 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, default = 0)
-    private Integer tokenVersion;
+    @Column(nullable = false)
+    private Integer tokenVersion = 0;
 
     @Column
     @CreationTimestamp

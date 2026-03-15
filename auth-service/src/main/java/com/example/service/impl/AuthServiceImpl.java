@@ -116,7 +116,7 @@ public class AuthServiceImpl implements AuthService {
 
             if(response.getStatusCode().equals(HttpStatusCode.valueOf(201))){
                 String passwordHashed = PasswordUtil.hashPassword(dto.getPassword().toCharArray(), PasswordUtil.getSalt());
-                UserEntity userToCreate = new UserEntity(dto.getUsername(), passwordHashed, Set.of(defaultRole));
+                UserEntity userToCreate = new UserEntity(dto.getUsername(), passwordHashed, 0, Set.of(defaultRole));
                 userRepository.save(userToCreate);
 
                 logger.info("[END SERVICE] - method = signUp, username = {}" , dto.getUsername());
@@ -190,5 +190,17 @@ public class AuthServiceImpl implements AuthService {
 
         logger.info("[END SERVICE] - method = deleteUserCredentials, username = {}", username);
         return new GenericResponse("User credentials deleted successfully!");
+    }
+
+    @Override
+    public Integer getUserTokenVersion(String username) throws IllegalArgumentException, ResourceNotFoundException {
+        logger.info("[START SERVICE] - method = getUserTokenVersion, username = {}", username);
+        if (Objects.isNull(username) || username.isEmpty())
+            throw new IllegalArgumentException("Username is mandatory!");
+
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(username);
+        if (userEntityOptional.isEmpty()) throw new ResourceNotFoundException("Username not exists!");
+
+        return userEntityOptional.get().getTokenVersion();
     }
 }

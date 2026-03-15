@@ -7,7 +7,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 
 @Configuration
-public class GlobalConfigurator {
+public class SqsClientConfigurator {
 
     @Value("${aws.region}")
     String region;

@@ -59,8 +59,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
         HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
@@ -70,8 +70,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String internalApiKeyHeader = request.getHeader(INTERNAL_API_KEY_HEADER);
         String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
 
-        if (HttpMethod.DELETE.equals(httpMethod) && pathMatcher.match("/**/credentials", path)) {
-            if(Objects.isNull(internalApiKeyHeader) || !internalApiKey.equals(internalApiKeyHeader)) {
+        if ((HttpMethod.DELETE.equals(httpMethod) && pathMatcher.match("/**/credentials", path)) ||
+                (HttpMethod.GET.equals(httpMethod) && pathMatcher.match("/**/token/version", path))) {
+            if (Objects.isNull(internalApiKeyHeader) || !internalApiKey.equals(internalApiKeyHeader)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 response.getWriter().write(objectMapper.writeValueAsString(new GenericResponse("Unauthorized!")));
@@ -100,21 +101,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             logger.info("[USER FROM TOKEN] - username = {}, tokenVersion = {}", username, tokenVersion);
 
-            Optional<UserEntity> userEntityOptional = userRepository.findByUsername(username);
-            if (userEntityOptional.isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                response.getWriter().write(objectMapper.writeValueAsString(new GenericResponse("Invalid or expired token!")));
-                return;
-            }
-            UserEntity userEntity = userEntityOptional.get();
-            if (userEntity.getTokenVersion() != tokenVersion) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                response.getWriter().write(objectMapper.writeValueAsString(new GenericResponse("Invalid or expired token!")));
-                return;
-            }
-
             List<?> roles = claims.get("roles", List.class);
             List<SimpleGrantedAuthority> authorities = roles.stream()
                     .map(Object::toString)
@@ -124,15 +110,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Authentication auth = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
-                    authorities
-            );
+                    authorities);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
         } catch (JwtException e) {
             logger.error("JWT error: {}", e.getMessage());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.getWriter().write(objectMapper.writeValueAsString(new GenericResponse("Invalid or expired token!")));
+            response.getWriter()
+                    .write(objectMapper.writeValueAsString(new GenericResponse("Invalid or expired token!")));
             return;
         }
 

@@ -19,5 +19,7 @@ public interface AuthService {
 
     GenericResponse changeRole(ChangeRoleRequestDto dto) throws IllegalArgumentException, ResourceNotFoundException;
 
+    Integer getUserTokenVersion(String username) throws IllegalArgumentException, ResourceNotFoundException;
+    
     GenericResponse deleteUserCredentials(String username) throws IllegalArgumentException, ResourceNotFoundException;
 }

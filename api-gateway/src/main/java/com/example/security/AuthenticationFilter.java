@@ -13,8 +13,13 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
+
+import com.example.dto.TokenVersionDto;
+
 import reactor.core.publisher.Mono;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -27,6 +32,9 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Value("${security.jwt.secret-key}")
     private String secret;
+
+    @Value("${auth-service-url}")
+    private String authServiceUrl;
 
     private Key signingKey;
 
@@ -74,6 +82,27 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             // Propaga informazioni utili ai microservizi a valle
             String subject = claims.getSubject();
             Object roles = claims.get("roles");
+            Integer tokenVersionFromToken = claims.get("tokenVersion", Integer.class);
+            Integer tokenVersionFromService = null;
+
+            if(tokenVersionFromToken == null) {
+                return unauthorized(exchange, "INVALID_TOKEN");
+            }
+
+            if (tokenVersionFromToken != null && tokenVersionFromToken > 0) {
+                RestTemplate restTemplate = new RestTemplate();
+                String tokenVersionUrl =  authServiceUrl + "auth/token/version/?username=" + subject;
+                ResponseEntity<TokenVersionDto> response = restTemplate.getForEntity(tokenVersionUrl, TokenVersionDto.class);
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    tokenVersionFromService = response.getBody().getTokenVersion();
+                } else {
+                    return unauthorized(exchange, "INVALID_TOKEN");
+                }
+            }
+
+            if (tokenVersionFromToken != tokenVersionFromService) {
+                return unauthorized(exchange, "INVALID_TOKEN");
+            }
 
             ServerWebExchange mutatedExchange = exchange.mutate()
                     .request(builder -> {
