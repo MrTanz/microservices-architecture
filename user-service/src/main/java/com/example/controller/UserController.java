@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/profile")
-    public ResponseEntity<GenericResponse> createUserProfile(@RequestBody UserDetailsDto dto) {
+    public ResponseEntity<GenericResponse> createUserProfile(@Valid @RequestBody UserDetailsDto dto) {
         logger.info("[START API CREATE USER PROFILE] - username = {}", dto.getUsername());
         userDetailsService.createUserProfile(dto);
         logger.info("[END API CREATE USER PROFILE] - username = {}", dto.getUsername());
@@ -50,7 +51,7 @@ public class UserController {
 
     @PutMapping(value = "/profile")
     @PreAuthorize("hasAnyRole('ADMIN', 'USERS_MANAGER', 'USER')")
-    public ResponseEntity<GenericResponse> updateUserProfile(@RequestBody UserDetailsDto dto) {
+    public ResponseEntity<GenericResponse> updateUserProfile(@Valid @RequestBody UserDetailsDto dto) {
         logger.info("[START API UPDATE USER PROFILE] - username = {}", dto.getUsername());
         userDetailsService.updateUserProfile(dto);
         logger.info("[END API UPDATE USER PROFILE] - username = {}", dto.getUsername());

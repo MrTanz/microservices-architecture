@@ -1,10 +1,19 @@
 package com.example.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 public class UserDetailsDto {
 
+    @NotBlank
+    @Email
     private String username;
+    @NotBlank
     private String name;
+    @NotBlank
     private String surname;
+    @Min(0)
     private int age;
 
     public UserDetailsDto(String username, String name, String surname, int age) {
