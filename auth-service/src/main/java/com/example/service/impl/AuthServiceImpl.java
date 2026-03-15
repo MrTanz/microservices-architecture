@@ -67,7 +67,11 @@ public class AuthServiceImpl implements AuthService {
 
         List<String> roles = userEntity.getRoles().stream().map(RoleEntity::getRole).toList();
 
-        String jwtToken = jwtUtil.generateToken(userEntity.getUsername(), roles);
+        var newTokenVersion = userEntity.getTokenVersion() + 1;
+
+        String jwtToken = jwtUtil.generateToken(userEntity.getUsername(), newTokenVersion, roles);
+        userEntity.setTokenVersion(newTokenVersion);
+        userRepository.save(userEntity);
         logger.info("[END SERVICE] - method = login, username = {}" , dto.getUsername());
         return new LoginResponseDto(jwtToken);
     }

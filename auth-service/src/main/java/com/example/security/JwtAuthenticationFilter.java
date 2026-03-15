@@ -96,8 +96,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .getBody();
 
             String username = claims.getSubject();
+            Integer tokenVersion = claims.get("tokenVersion", Integer.class);
 
-            logger.info("[USER FROM TOKEN] - username = {}", username);
+            logger.info("[USER FROM TOKEN] - username = {}, tokenVersion = {}", username, tokenVersion);
+
+            Optional<UserEntity> userEntityOptional = userRepository.findByUsername(username);
+            if (userEntityOptional.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.getWriter().write(objectMapper.writeValueAsString(new GenericResponse("Invalid or expired token!")));
+                return;
+            }
+            UserEntity userEntity = userEntityOptional.get();
+            if (userEntity.getTokenVersion() != tokenVersion) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.getWriter().write(objectMapper.writeValueAsString(new GenericResponse("Invalid or expired token!")));
+                return;
+            }
 
             List<?> roles = claims.get("roles", List.class);
             List<SimpleGrantedAuthority> authorities = roles.stream()

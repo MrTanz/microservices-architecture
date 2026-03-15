@@ -20,6 +20,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, default = 0)
+    private Integer tokenVersion;
+
     @Column
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,9 +36,10 @@ public class UserEntity {
     )
     private Set<RoleEntity> roles;
 
-    public UserEntity(String username, String password, Set<RoleEntity> roles) {
+    public UserEntity(String username, String password, Integer tokenVersion, Set<RoleEntity> roles) {
         this.username = username;
         this.password = password;
+        this.tokenVersion = tokenVersion;
         this.roles = roles;
     }
 
@@ -80,5 +84,13 @@ public class UserEntity {
 
     public Set<RoleEntity> getRoles() {
         return roles;
+    }
+
+    public Integer getTokenVersion() {
+        return tokenVersion;
+    }
+
+    public void setTokenVersion(Integer tokenVersion) {
+        this.tokenVersion = tokenVersion;
     }
 }

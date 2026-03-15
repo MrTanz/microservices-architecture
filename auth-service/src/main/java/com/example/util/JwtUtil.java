@@ -30,7 +30,7 @@ public class JwtUtil {
         this.key = new SecretKeySpec(Base64.getDecoder().decode(secret), "HmacSHA256");
     }
 
-    public String generateToken(String username, List<String> roles) {
+    public String generateToken(String username, Integer newTokenVersion, List<String> roles) {
         long nowMillis = System.currentTimeMillis();
         long expMillis = nowMillis + tokenTimeValidation;
         Date now = new Date(nowMillis);
@@ -40,6 +40,7 @@ public class JwtUtil {
                 .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(exp)
+                .claim("tokenVersion", newTokenVersion)
                 .claim("roles", roles)
                 .signWith(key)
                 .compact();
