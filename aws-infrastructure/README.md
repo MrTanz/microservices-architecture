@@ -6,8 +6,6 @@ Viene creato di default uno user con ruolo ADMIN. Altri utenti possono essere cr
 <!-- ATTENZIONE -->
 1. Una volta creata l'infrastruttura vanno creati manualmente gli schema su RDS e pushate le immagini docker su ECR
 2. Mancano le logiche per gestire le seguenti casistiche:
-  - utente che esegue più login: deve essere valido solo l'ultimo token
-  - utente che viene cancellato: il token deve essere revocato
   - se l'utente che effettua la chiamata di modifica ed elimina profilo ha solo permessi di USER allora deve poter effettuare
     tali operazioni limitatamente alla sua utenza
 3. Manca certificato per traffico HTTPS verso l'ALB
